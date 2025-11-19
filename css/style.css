@@ -59,6 +59,9 @@ section {
     height: 100%;
     padding: 10rem 9% 2rem;
     background: var(--bg-color);
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
 }
 .home {
     display: flex;
@@ -72,7 +75,43 @@ section {
 .home-detail h2 {
     display: inline-block;
     font-size: 3.2rem;
-    margin-top: -1rem;
+    margin-top: 0rem; /* temp height between h1 and h2*/
+}
+
+.home-detail h2 span {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    -webkit-text-stroke: .07rem var(--main-color);
+    animation: display-text 16s linear infinite;
+    animation-delay: calc(-4s * var(--i));
+}
+
+@keyframes display-text {
+    25%, 100% {
+        display: none;
+    }
+}
+
+.home-detail h2 span::before {
+    content: attr(data-text);
+    position: absolute;
+    width: 0;
+    border-right: .2rem solid var(--main-color);
+    color: var(--main-color);
+    white-space: nowrap;
+    overflow: hidden;
+    animation: fill-text 4s linear infinite;
+}
+
+@keyframes fill-text {
+    10%, 100% {
+        width: 0;
+    }
+
+    70%, 90% {
+        width: 100%;
+    }
 }
 
 .home-detail p {
@@ -107,6 +146,8 @@ section {
 
 .home-detail .btn-sci .sci a {
     display: inline-block;
+    height: 4rem;
+    width: 4rem;
     padding: 0.8rem;
     border: .2rem solid var(--main-color);
     border-radius: 50%;
@@ -123,10 +164,10 @@ section {
 }
 .home-img .img-box {
     position: relative;
-    width: 32vw;
-    height: 32vw;
+    width: 29vw;
+    height: 29vw;
     border-radius: 50%;
-    padding: 0.5rem;
+    padding: .5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,8 +181,17 @@ section {
     height: 50rem;
     background: conic-gradient(transparent, transparent, transparent, var(--main-color));
     transform: rotate(0deg);
+    animation: rotate-border 10s linear infinite;
+}
+.home-img .img-box::after {
+    animation-delay: -5s;
 }
 
+@keyframes rotate-border {
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .home-img .img-box .img-item {
     position: relative;
@@ -153,10 +203,11 @@ section {
     display: flex;
     justify-content: center;
     z-index: 1;
+    overflow: hidden;
 }
 .home-img .img-box .img-item img {
     position: absolute;
-    top: 3rem;
+    top: 1rem;
     display: block;
     width: 85%;
     object-fit: cover;
